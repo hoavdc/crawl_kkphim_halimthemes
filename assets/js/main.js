@@ -59,11 +59,11 @@ jQuery(function ($) {
     var urlPageCrawl = `https://phimapi.com/danh-sach/phim-moi-cap-nhat?page=${currentPage}`;
 
     if (currentPage < inputPageTo.val()) {
-      divMsgText.html("Done!");
+      divMsgText.html("Hoàn tất!");
       buttonCrawlMovies.show(300);
       return false;
     }
-    divMsgText.html(`Crawl Page: ${urlPageCrawl}`);
+    divMsgText.html(`Đang cào trang: ${urlPageCrawl}`);
     $.ajax({
       url: ajaxurl,
       type: "POST",
@@ -112,12 +112,12 @@ jQuery(function ($) {
     listLink = listLink.split("\n");
     let linkCurrent = listLink.shift();
     if (linkCurrent == "") {
-      divMsgText.html(`Crawl Done!`);
+      divMsgText.html(`Hoàn tất!`);
       return false;
     }
     listLink = listLink.join("\n");
     textArealistMovies.val(listLink);
-    divMsgText.html(`Crawl Movies: <b>${linkCurrent}</b>`);
+    divMsgText.html(`Đang cào phim: <b>${linkCurrent}</b>`);
 
     $.ajax({
       url: ajaxurl,
@@ -155,7 +155,7 @@ jQuery(function ($) {
           let minimum = Math.min(timeout_from, timeout_to);
           wait_timeout = Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
         }
-        divMsgText.html(`Wait timeout ${wait_timeout}ms`);
+        divMsgText.html(`Đang đợi chờ ${wait_timeout}ms`);
         setTimeout(() => {
           crawl_movies();
         }, wait_timeout);
