@@ -42,9 +42,9 @@ function crawl_tools()
 
 <div class="wrap">
 	<nav class="nav-tab-wrapper">
-    <a href="?page=crawl-kkphim-tools" class="nav-tab <?php if($tab===null):?>nav-tab-active<?php endif; ?>">Thủ công</a>
-    <a href="?page=crawl-kkphim-tools&tab=schedule" class="nav-tab <?php if($tab==='schedule'):?>nav-tab-active<?php endif; ?>">Tự động</a>
-    <a href="?page=crawl-kkphim-tools&tab=about" class="nav-tab <?php if($tab==='about'):?>nav-tab-active<?php endif; ?>">Giới thiệu</a>
+    <a href="?page=crawl-kkphim-tools" class="nav-tab <?php if($tab===null):?>nav-tab-active<?php endif; ?>">Thủ Công</a>
+    <a href="?page=crawl-kkphim-tools&tab=schedule" class="nav-tab <?php if($tab==='schedule'):?>nav-tab-active<?php endif; ?>">Tự Động</a>
+    <a href="?page=crawl-kkphim-tools&tab=about" class="nav-tab <?php if($tab==='about'):?>nav-tab-active<?php endif; ?>">Giới Thiệu</a>
   </nav>
 	<div class="tab-content">
 		<?php
@@ -57,13 +57,13 @@ function crawl_tools()
 				<div class="crawl_page">
 					<div class="postbox">
 						<div class="inside">
-							<b>Hưỡng dẫn cấu hình crontab</b>
+							<b>Hưỡng dẫn cấu hình CronJob</b>
 							<div>
 								<p>
 									Thời gian thực hiện (<a href="https://crontab.guru/" target="_blank">Xem thêm</a>)
 								</p>
 								<p>
-									Cấu hình crontab: <code><i style="color:blueviolet">*/10 * * * *</i> cd <i style="color:blueviolet">/path/to/</i>wp-content/plugins/crawl_kkphim_halimthemes/ && php -q schedule.php <i style="color:blueviolet">{secret_key}</i></code>
+									Cấu hình CronJob: <code><i style="color:blueviolet">*/10 * * * *</i> cd <i style="color:blueviolet">/path/to/</i>wp-content/plugins/crawl_kkphim_halimthemes/ && php -q schedule.php <i style="color:blueviolet">{khóa bảo mật}</i></code>
 								</p>
 								<p>
 									Ví dụ:
@@ -83,8 +83,8 @@ function crawl_tools()
 							<b>Cấu hình tự động</b>
 							<div>
 								<p>
-									Secret Key: <input type="text" name="crawl_kkphim_schedule_secret" value="<?php echo get_option(CRAWL_KKPHIM_OPTION_SECRET_KEY, ''); ?>">
-									<button id="save_crawl_kkphim_schedule_secret" class="button">Lưu mật khẩu</button>
+									Khóa bảo mật: <input type="text" name="crawl_kkphim_schedule_secret" value="<?php echo get_option(CRAWL_KKPHIM_OPTION_SECRET_KEY, ''); ?>">
+									<button id="save_crawl_kkphim_schedule_secret" class="button">Lưu</button>
 								</p>
 							</div>
 							<div>
@@ -97,7 +97,7 @@ function crawl_tools()
 								</p>
 							</div>
 							<div>
-								<p>Trạng thái: <?php echo (int) get_option(CRAWL_KKPHIM_OPTION_RUNNING, 0) === 1 ? "<code style='color: blue'>Đang chạy...</code>" : "<code style='color: chocolate'>Dừng</code>"; ?></p>
+								<p>Trạng thái: <?php echo (int) get_option(CRAWL_KKPHIM_OPTION_RUNNING, 0) === 1 ? "<code style='color: green'>Bật</code>" : "<code style='color: red'>Tắt</code>"; ?></p>
 							</div>
 							<div>
 								<p>Bỏ qua định dạng: <code style="color: red"><?php echo join(', ', $crawl_kkphim_settings->filterType);?></code></p>
@@ -110,7 +110,7 @@ function crawl_tools()
 							</div>
 
 								<div class="notice notice-success">
-									<p>File logs: <code style="color:brown"><?php echo $schedule_log['log_filename'];?></code></p>
+									<p>Tệp lịch sử: <code style="color:brown"><?php echo $schedule_log['log_filename'];?></code></p>
 									<textarea rows="10" id="schedule_log" class="" readonly><?php echo $schedule_log['log_data'];?></textarea>
 								</div>
 
@@ -168,19 +168,19 @@ function crawl_tools()
 						?>
 					</div>
 					<p>
-						<div id="save_crawl_kkphim_schedule" class="button">Lưu cấu hình cho crawl tự động</div>
+						<div id="save_crawl_kkphim_schedule" class="button">Lưu cấu hình cho Crawl(cào) tự động</div>
 					</p>
 				</div>
 
 				<div class="crawl_page">
-					Page Crawl: From <input type="number" name="page_from" value="">
-					To <input type="number" name="page_to" value="">
-					<div id="get_list_movies" class="primary">Get List Movies</div>
+					Từ page <input type="number" name="page_from" value="">
+					Tới page <input type="number" name="page_to" value="">
+					<div id="get_list_movies" class="primary">Lấy danh sách</div>
 				</div>
 
 				<div class="crawl_page">
-					Wait Timeout Random: From  <input type="number" name="timeout_from" value="">(ms) - 
-					To <input type="number" name="timeout_to" value=""> (ms)
+					Chờ crawl từ (ms)  <input type="number" name="timeout_from" value="">(ms) - 
+					đến <input type="number" name="timeout_to" value=""> (ms)
 				</div>
 
 				<div class="crawl_page">
@@ -188,8 +188,8 @@ function crawl_tools()
 						<p id="msg_text"></p>
 					</div>
 					<textarea rows="10" id="result_list_movies" class="list_movies"></textarea>
-					<div id="roll_movies" class="roll">Trộn Link</div>
-					<div id="crawl_movies" class="primary">Crawl Movies</div>
+					<div id="roll_movies" class="roll">Trộn Phim</div>
+					<div id="crawl_movies" class="primary">Cào Ngay</div>
 
 					<div style="display: none;" id="result_success" class="notice notice-success">
 						<p>Crawl Thành Công</p>
@@ -197,7 +197,7 @@ function crawl_tools()
 					</div>
 
 					<div style="display: none;" id="result_error" class="notice notice-error">
-						<p>Crawl Lỗi</p>
+						<p>Crawl Thất Bại</p>
 						<textarea rows="10" id="list_crawl_error"></textarea>
 					</div>
 				</div>
@@ -335,7 +335,7 @@ function crawl_kkphim_movies_handle($url, $kkphim_id, $kkphim_update_time, $filt
 						return json_encode($result);
 					}
 
-					$api_url 			= str_replace('phimapi.com', $url);
+					$api_url 			= $url;
 					$sourcePage 	=  HALIMHelper::cURL($api_url);
 					$sourcePage 	= json_decode($sourcePage, true);
 					$data 				= create_data($sourcePage, $url, $kkphim_id, $kkphim_update_time);
@@ -373,7 +373,7 @@ function crawl_kkphim_movies_handle($url, $kkphim_id, $kkphim_update_time, $filt
 			endif;
 		}
 
-		$api_url 		= str_replace('phimapi.com', $url);
+		$api_url 		= $url;
 		$sourcePage =  HALIMHelper::cURL($api_url);
 		$sourcePage = json_decode($sourcePage, true);
 		$data 			= create_data($sourcePage, $url, $kkphim_id, $kkphim_update_time, $filterType, $filterCategory, $filterCountry);
