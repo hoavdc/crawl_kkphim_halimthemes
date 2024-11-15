@@ -1,4 +1,8 @@
 <?php
+
+namespace CrawlKKPhim;
+
+<?php
 function cutHtml($string, $begin, $end)
 {
 	$middle = explode($begin, $string);
